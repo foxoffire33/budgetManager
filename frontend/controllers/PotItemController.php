@@ -69,12 +69,9 @@ class PotItemController extends FrontendController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['/pot/view', 'id' => $model->pot_id]);
         }
+        return $this->render('update', ['model' => $model,]);
     }
 
     /**
@@ -85,9 +82,10 @@ class PotItemController extends FrontendController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/pot/view', 'id' => $model->pot_id]);
     }
 
     /**
