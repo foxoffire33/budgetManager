@@ -48,6 +48,7 @@ class PotItem extends ActiveRecord
     public function beforeSave($insert)
     {
         $this->date = Yii::$app->formatter->asDate($this->date,'yyyy-MM-dd');
+        $this->user_id = Yii::$app->user->identity->id;
         return parent::beforeSave($insert);
     }
 
@@ -75,4 +76,9 @@ class PotItem extends ActiveRecord
     {
         return $this->hasOne(Pot::className(), ['id' => 'pot_id']);
     }
+
+    public function getUser(){
+        return $this->hasOne(User::className(),['id' => 'user_id']);
+    }
+
 }

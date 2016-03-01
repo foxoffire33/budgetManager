@@ -6,6 +6,7 @@ use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\Pot */
 
@@ -49,10 +50,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'title',
                         'price:currency',
                         'amount',
+                        'user_id' => [
+                            'attribute' => 'user_id',
+                            'value' => function ($data) {
+                                return $data->user->email;
+                            },
+                        ],
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'urlCreator' => function ($action, $model, $key, $index) {
-                                return Url::toRoute(['/pot-item/'.$action, 'id' => $model->id]);
+                                return Url::toRoute(['/pot-item/' . $action, 'id' => $model->id]);
                             }
                         ],
                     ],
